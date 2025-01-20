@@ -1,0 +1,11 @@
+#!/bin/bash
+
+sec=$(uptime -s | awk '{print $2}' | awk -F ':' '{print $3}')
+min=$(uptime -s | awk '{print $2}' | awk -F ":" '{print $2}')
+
+sec=$((10#${sec}))
+min=$((10#${min}))
+
+del=$((sec + min%10*60))
+
+sleep $del
