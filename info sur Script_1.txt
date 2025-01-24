@@ -1,3 +1,17 @@
+***** une explication de cette Script **********
+
+
+--------> #!/bin/bash
+EXPLICATION 
+symbole #!
+    * Le symbole #! (appelé "shebang") indique au système d'exploitation que le fichier est un script.
+    * et ki gol chno homa les programme li 5ase utliser bach exicute hde script
+symbole #!
+    * /bin/bash est le chemin absolu du programme bash, qui est un interpréteur de commandes (shell).
+    * Cela signifie que toutes les commandes dans ce script seront interprétées par le programme bash
+
+
+
 -------> # ARCH 
 COMMANDE : arch=$(uname -a)
 EXPLICATION 
@@ -67,12 +81,92 @@ BUT :  calculer le pourcentage de l'espace disque utilisé pour toutes les parti
 
 
 
----------> # CPU LOAD
+---------> # CPU LOAD (pourcentage d'utilisation du CPU )
 COMMANDE :
 1) cpul=$(vmstat 1 2 | tail -1 | awk '{printf $15}')
 2) cpu_op=$(expr 100 - $cpul)
 3) cpu_fin=$(printf "%.1f" $cpu_op)
 EXPLICATION
+1) cpul=$(vmstat 1 2 | tail -1 | awk '{printf $15}')
+BUT : cette commande te permet de connaitre le procentage de  cpru utlise sur ton system Linux
+vmstat 1 2 afficher les statistique system tout les 1 seconde  2 fois comme l'utilisation du cpu , de la mémoire
+tail -1 : prend uniquement le dernier ligne produit par vmstat
+awk '{print $15}' : selectioner le 15 eme colone dans ce cas represente le % de cpu inactif(غير نشط)
+2) cpu_op=$(expr 100 - $cpul)
+BUT : pour calculer le pourcentage d'itilstion 
+si le colone 15 montre le pourcentage de cpu inactif , pour obtenur k=le pourcentage d'utilisation ona fait
+100 - $15
+3) cpu_fin=$(printf "%.1f" $cpu_op)
+BUt : afficher le resulta (qui représente le pourcentage de CPU utilisé)
+
+
+
+--------> # LAST BOOT (le dernier redemarage du système)
+COMMANDE : lb=$(who -b | awk '$1 == "system" {print $3 " " $4}')
+EXPLICATION
+who : commade pour affiche info sur l'utilisateure cennectes avec des info comme(Nom, terminal, date, ..)
+who -b : afficher les info de dernier demarage du système
+awk : role dyalha hna filtre les ligne contenant le "system"
+$1 == "system" : verfier si le contenu de la premiere colone est le system , alors la comande 
+traiter cette ligne 
+{print $3 " " $4} : afficher colone 3 et 4 <=> date et l'eure de demarage
+
+
+--------> # verfication de l'activation de LVM
+COMMAND : lvmu=$(if [ $(lsblk | grep "lvm" | wc -l) -gt 0 ]; then echo yes; else echo no; fi)
+EXPLICATION:
+lsblk : afficher la structure des disques et partion dans le system 
+grep "lvm" : filtrer uniquement les lignes contenant le Mot "lvm"
+wc - l : compte le nr des igne dans la sortie precedente
+-gt : operateur de compirateure en she , signifie superieru à 0
+0 : verfier si le nbr de partion LVm est > 0
+si condition vrai afficher yes , sinon afficher no
+fi : c'est le fin de (if)
+
+
+--------> # CONNEXIONS TCP
+COMMANDE : tcpc=$(ss -ta | grep ESTAB | wc -l)
+EXPLICATION :
+ss : outils pour afficher des info sur les Connexions  overts sur le système, permet de voir les Connexions tcp, udp et d'autre type
+option:
+-t : filtre le Connexions tcp
+-a :montre tout els connexion y compris li en ecoute(LISTEN) et celle( التي) etablier(ESTABLISHED)
+[
+    une info c'est quoi LISTEN et ESTABLISHED
+    quant deux machine parler sur internet, ils utlisent tcp pour seconnecter , fhade communication 
+    ils passent par diffirent etat:
+    1) LISTEN : l'ordinateure attend une connexion (exmple une serveure ecoute sur un port com 8080)
+    1) ESTABLISHED : les deux machine sont connecter etparlent ya3ni la connextion etablire entre les deux 
+]
+grep ESTAB : filtre les filne contient ESTAB pourquoi!! -> ESTAB est l'etat"ESTABLISHED" qui senifier
+que la connexion tcp est active et encoure de communication
+wc -l : compte les nbr de ligne 
+
+--------> # NOMBERS D'UTILISATEURE CONNECTEES
+COMMAND :ulog=$(who | awk '{print $1}' | sort -u | wc -l)
+EXPLICATION:
+who : Affiche les utilisateurs connectés avec des détails comme leur nom, leur terminal, leur adresse IP, etc.
+awk '{print $1}' :Extrait uniquement le nom des utilisateurs.
+sort - u: Trie les noms des utilisateurs et élimine les doublons
+wc -l : Compte le nombre total d'utilisateurs uniques.
+
+
+
+
+--------> # @ IP ET MAC
+COMMANDE :
+1)ip=$(hostname -I)
+2 )mac=$(ip link | grep "link/ether" | awk '{print $2}')
+EXPLICATION :
+1)ip=$(hostname -I)
+hostname : engenerale cete commande utliser pour aficher le lenom de hot 
+-I : permet de afficher @IP associer au le système
+2 )mac=$(ip link | grep "link/ether" | awk '{print $2}')
+ip link : aficher des info sur interface reseaux de ton system , inclut les info sur interface VIRTUAL et PHYSICAL
+grep "link/ether" : link/ether corespond @MAC de cette de interface reseaux et chaque interface contient une @MAC unique
+awk '{print $2}' : pour afficher le colone tani li contient @MAC
+
+
 
 
 

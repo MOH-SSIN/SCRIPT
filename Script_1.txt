@@ -34,7 +34,9 @@ lvmu=$(if [ $(lsblk | grep "lvm" | wc -l) -gt 0 ]; then echo yes; else echo no; 
 tcpc=$(ss -ta | grep ESTAB | wc -l)
 
 # USER LOG
-ulog=$(users | wc -w)
+//ulog=$(users | wc -w)
+ulog=$(who | awk '{print $1}' | sort | uniq | wc -l)
+
 
 # NETWORK
 ip=$(hostname -I)
@@ -43,7 +45,8 @@ mac=$(ip link | grep "link/ether" | awk '{print $2}')
 # SUDO
 cmnd=$(journalctl _COMM=sudo | grep COMMAND | wc -l)
 
-wall "	Architecture: $arch
+wall "	
+	Architecture: $arch
 	CPU physical: $cpuf
 	vCPU: $cpuv
 	Memory Usage: $ram_use/${ram_total}MB ($ram_percent%)
