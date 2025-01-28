@@ -9,3 +9,46 @@ min=$((10#${min}))
 del=$((sec + min%10*60))
 
 sleep $del
+
+********************************** ********************************
+                            une explication de cette chose :
+--------> #!/bin/bash
+EXPLICATION 
+symbole #!
+    * Le symbole #! (appelé "shebang") indique au système d'exploitation que le fichier est un script.
+    * et ki gol chno homa les programme li 5ase utliser bach exicute hde script
+/bin/bash
+    * /bin/bash est le chemin absolu du programme bash, qui est un interpréteur de commandes (shell).
+    * Cela signifie que toutes les commandes dans ce script seront interprétées par le programme bash
+
+
+
+----> sec=$((10#${sec}))
+EXPLICATION :
+$((...)) :  cela permet d'évaluer une expression arithmétique(des calculs ou des conversions) dans Bash
+10#${sec} : Cela indique à Bash que tu veux interpréter la valeur de ${sec} comme un nombre en base 10 (décimal)
+${sec} : la valeure precedent
+
+----> min=$((10#${min}))
+$((...)) :  cela permet d'évaluer une expression arithmétique(des calculs ou des conversions) dans Bash
+10#${sec} : Cela indique à Bash que tu veux interpréter la valeur de ${sec} comme un nombre en base 10 (décimal)
+${min} : la valeure precedent
+
+
+------> del=$((sec + min%10*60))
+$(( ... )) : Évaluation arithmétique (Cela indique à Bash de calculer une expression arithmétique à l'intérieur des parenthèses.)
+sec : est une variable qui contient le nombre de secondes extraites précédemment
+min : est une variable qui contient le nombre de minutes extraites précédemment
+
+------> del=$((sec + min%10*60))
+يبدو أن الهدف من سطر الأوامر هذا هو حساب إجمالي التأخير (del) بالثواني من خلال الجمع بين الثواني الحالية والحساب بناءً على الدقائق.
+
+------> sleep $del
+Cette commande fait pauser l'exécution du script pendant del secondes
+
+
+
+
+
+
+

@@ -6,7 +6,7 @@ EXPLICATION
 symbole #!
     * Le symbole #! (appelé "shebang") indique au système d'exploitation que le fichier est un script.
     * et ki gol chno homa les programme li 5ase utliser bach exicute hde script
-symbole #!
+/bin/bash
     * /bin/bash est le chemin absolu du programme bash, qui est un interpréteur de commandes (shell).
     * Cela signifie que toutes les commandes dans ce script seront interprétées par le programme bash
 
@@ -63,10 +63,10 @@ COMMANDE :
 2) disk_use=$(df -m | grep "/dev/" | grep -v "/boot" | awk '{disk_u += $3} END {print disk_u}')
 3) disk_percent=$(df -m | grep "/dev/" | grep -v "/boot" | awk '{disk_u += $3} {disk_t+= $2} END {printf("%d"), disk_u/disk_t*100}')
 EXPLICATION
-
 1) disk_total=$(df -m | grep "/dev/" | grep -v "/boot" | awk '{disk_t += $2} END {printf ("%.1fGb\n"), disk_t/1024}')
 BUT :  calculer l'espace disque total (en Go) utilisé par toutes les partitions de type /dev/, kan7ydo la partition /boot
-df -m : kt2afici lina les inf sur disk et poion -m en mégaoctets (Mo)
+/dev  : contient des fichiers représentant les périphériques physiques ou virtuels du système.
+df -m : afficher lina les info sur disk et option -m en mégaoctets (Mo)
 grep "/dev/" :  Sélectionner uniquement les partitions physiques (disques) liées à /dev/
 grep -v "/boot" : Exclure la partition /boot
 awk : dwre dyalha hna howa katb9a additionner l'espace total de chaque partition sélectionnée
@@ -94,7 +94,7 @@ tail -1 : prend uniquement le dernier ligne produit par vmstat
 awk '{print $15}' : selectioner le 15 eme colone dans ce cas represente le % de cpu inactif(غير نشط)
 2) cpu_op=$(expr 100 - $cpul)
 BUT : pour calculer le pourcentage d'itilstion 
-si le colone 15 montre le pourcentage de cpu inactif , pour obtenur k=le pourcentage d'utilisation ona fait
+si le colone 15 montre le pourcentage de cpu inactif , pour obtenur le pourcentage d'utilisation ona fait
 100 - $15
 3) cpu_fin=$(printf "%.1f" $cpu_op)
 BUt : afficher le resulta (qui représente le pourcentage de CPU utilisé)
@@ -130,7 +130,7 @@ EXPLICATION :
 ss : outils pour afficher des info sur les Connexions  overts sur le système, permet de voir les Connexions tcp, udp et d'autre type
 option:
 -t : filtre le Connexions tcp
--a :montre tout els connexion y compris li en ecoute(LISTEN) et celle( التي) etablier(ESTABLISHED)
+-a :montre tout les connexion y compris li en ecoute(LISTEN) et celle( التي) etablier(ESTABLISHED)
 [
     une info c'est quoi LISTEN et ESTABLISHED
     quant deux machine parler sur internet, ils utlisent tcp pour seconnecter , fhade communication 
